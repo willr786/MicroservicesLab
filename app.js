@@ -1,6 +1,4 @@
 const Url = "http://18.220.85.60/api/";
-// const Url = "http://microservice.test/api/";
-
 
 function fetchProductList() {
 
@@ -163,6 +161,10 @@ function setComment($id) {
 
     //TODO complete implementation using the product id
     alert("app.js/setComment() not implemented")
+
+    //HINT
+    //Take note of how the Ajax call in app.js/fetchComments() posts a GET request to corresponding API endpoint.
+    //Look at the Microservice API Documentation and find out the appripriate type of request for this action.
 
 }
 
