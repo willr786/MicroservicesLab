@@ -1,4 +1,4 @@
-const Url = "http://18.220.85.60/api/";
+const Url = "http://18.220.85.60/api/"; //this constant holds the base url for the Microservice API, you will append the API route to this value
 
 function fetchProductList() {
 
@@ -14,18 +14,20 @@ function fetchProductList() {
 
     jsonObj.push(item);
 
+    //jQuery Ajax request
     $.ajax({
-        url: Url+'GetProduct',
-        type: 'get',
-        dataType: 'json',
-        contentType: 'text/plain',
-        data: jsonObj[0],
+        url: Url+'GetProduct', //API url
+        type: 'get', //type of request (get)
+        dataType: 'json', //dataType, which is json for this lab.
+        contentType: 'text/plain', //contentType, which is text/plain since json is sent as plain text.
+        data: jsonObj[0], //data to be sent
 
-        success: function (data) {
+        success: function (data) { //on success calls this functions and passes the API response as the data parameter.
             productList='';
 
             $.each(data['data']['List'], function(i, item) {
 
+                //this is HTML code that is reactively added to the page, your TODO solutions do not need this.
                 productListAdd = '<div class="col-sm-6 col-md-4 col-lg-3 mt-4" id="product'+item['id']+'">\n' +
                     '            <div class="card card-inverse card-info">\n' +
                     '                <img class="card-img-top" src="'+item['image']+'">\n' +
@@ -53,7 +55,7 @@ function fetchProductList() {
             $('#items').html(productList);
 
         },
-        error: function (data) {
+        error: function (data) { //on error, alert the user.
             alert("Error while fetching data.");
         }
 
@@ -63,11 +65,12 @@ function fetchProductList() {
 function fetchOneProduct($id) {
     var product;
 
+    //jQuery Ajax request
     $.ajax({
-        url: Url+'GetOneProduct',
+        url: Url+'GetOneProduct', //API url
         type: 'get',
-        dataType: 'json',
-        data: {"product_id":$id},
+        dataType: 'json', //dataType, which is json for this lab.
+        data: {"product_id":$id}, //the json is defined here using javascript's dictionary syntax.
         contentType: 'text/plain',
         success: function (data) {
             product='';
@@ -116,9 +119,11 @@ function fetchComments($id) {
         url: Url+'GetProductComment',
         type: 'get',
         dataType: 'json',
-        data: {"product_id":$id},
+        data: {"product_id":$id}, //the json is defined here using javascript's dictionary syntax.
         contentType: 'text/plain',
-        success: function (data) {
+
+        success: function (data) { //on success
+            //reactive HTML that depends on the contents od the returned data
             comment='';
             comment='<div class="panel panel-default" style="width:800px">\n' +
                 '            <div class="panel-heading">\n' +
@@ -151,7 +156,7 @@ function fetchComments($id) {
             $('#comment-list').html(comment);
 
         },
-        error: function (data) {
+        error: function (data) { //on error, throw an alert
             alert("Error while fetching data.");
         }
     });
@@ -177,12 +182,15 @@ function addToCart($id) {
 }
 
 function toShoppingCart(){
-    let email =$.trim($('#email').val());
+    let email =$.trim($('#email').val()); //gets the user's email
+
+    //email validation
+
     if( email !='' ) {
-        sessionStorage.setItem('email', email);
-        window.location.href = './cart.html';
+        sessionStorage.setItem('email', email); //setItem 'email' in sessionStorage to be the user's email. You can access sessionStorage by sessionStorage.getItem().
+        window.location.href = './cart.html'; //redirect to the shopping cart page
     } else {
-        alert("Please enter your email at top of page.");
+        alert("Please enter your email at top of page."); //alert user since email is empty
     }
 }
 

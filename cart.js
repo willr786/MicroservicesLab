@@ -4,7 +4,7 @@ let listAdd;
 let itemCount;
 let totalPrice;
 
-let email = sessionStorage.getItem('email');
+let email = sessionStorage.getItem('email'); //gets the users email from sessionStorage
 
 getCart(email);
 
